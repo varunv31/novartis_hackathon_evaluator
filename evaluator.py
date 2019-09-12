@@ -349,4 +349,4 @@ if __name__ == "__main__":
     def warn(*args, **kwargs):
         pass
     warnings.warn = warn
-    app.run()
+    app.run(host='0.0.0.0')
