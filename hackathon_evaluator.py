@@ -176,6 +176,9 @@ class NovartisHackathonEvaluator:
         MAPE = df_mape['ABS'].mean()
 
         MAPE_Score = (1-MAPE)
+        """
+        TODO : Normalize these scores to fall within a particular range
+        """
 
         return MAPE_Score
         
@@ -208,6 +211,9 @@ class NovartisHackathonEvaluator:
 
         # Error Score
         score = (submission_scalar * (1 - MAPE_Score) ) / actual_scalar
+        """
+        TODO : Normalize these scores to fall within a particular range
+        """
 
         return score
     
@@ -284,6 +290,13 @@ class NovartisHackathonEvaluator:
         return weighted_score
 
 if __name__ == "__main__":
-    evaluator = NovartisHackathonEvaluator("data/ground_truth", debug=True)
+    evaluator = NovartisHackathonEvaluator("data/ground_truth", debug=False)
     score_object = evaluator.evaluate("data/submission")
     print(score_object)
+
+    """
+    # Benchmark
+    import tqdm
+    for k in tqdm.tqdm(range(1000)):
+        score_object = evaluator.evaluate("data/submission")
+    """
