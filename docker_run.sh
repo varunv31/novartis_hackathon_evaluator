@@ -1,4 +1,13 @@
 IMAGE_NAME="aicrowd/novartis_hackathon_evaluator"
 IMAGE_TAG="v1"
+UPLOAD_FOLDER="/tmp"
+UPLOAD_EXTRACT_FOLDER="/tmp"
+UNIQUE_ACCESS_KEY="QUlDUk9XRF9HUkFERVIK"
+GROUND_TRUTH_DATA_DIRECTORY="data/ground_truth"
 
-sudo docker run -p 5000:5000 -it ${IMAGE_NAME}:${IMAGE_TAG}
+sudo docker run -p 5000:5000 \
+-v $PWD/${GROUND_TRUTH_DATA_DIRECTORY}:/home/aicrowd/data/ground_truth \
+-e UPLOAD_FOLDER=${UPLOAD_FOLDER} \
+-e UPLOAD_EXTRACT_FOLDER=${UPLOAD_EXTRACT_FOLDER} \
+-e UNIQUE_ACCESS_KEY=${UNIQUE_ACCESS_KEY} \
+-it ${IMAGE_NAME}:${IMAGE_TAG}
