@@ -220,6 +220,11 @@ class NovartisHackathonEvaluator:
         score = (submission_scalar * (1 - MAPE_Score)) / actual_scalar
         """
         TODO : Normalize these scores to fall within a particular range
+
+        Another key problem is that if participants submit arbitrarily 
+        large values, lets say 1000000000 for the submission_value
+        then they have can get arbitrarily large scores
+        So some form of clipping has to be done here.
         """
 
         return score
