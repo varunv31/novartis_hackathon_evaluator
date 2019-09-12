@@ -66,6 +66,8 @@ class OverallEvaluator:
         `client_payload` will be a dict with (atleast) the following keys :
           - aicrowd_submission_id : A unique id representing the submission
           - aicrowd_participant_id : A unique id for participant/team submitting (if enabled)
+
+          Can be made : [0, 1]
         """
         aicrowd_submission_id = client_payload["aicrowd_submission_id"]
         aicrowd_participant_uid = client_payload["aicrowd_participant_id"]
@@ -97,6 +99,8 @@ class OverallEvaluator:
          `client_payload` will be a dict with (atleast) the following keys :
           - aicrowd_submission_id : A unique id representing the submission
           - aicrowd_participant_id : A unique id for participant/team submitting (if enabled)
+
+          Can be made : [-1, 1]
         """
         
                                        
@@ -130,6 +134,7 @@ class OverallEvaluator:
         """
         This function will calculate the MAPE for the list of hospitals provided
         
+        [-inf, 0]
         """
         
         #importing participant dataframe
@@ -179,14 +184,14 @@ if __name__ == "__main__":
     # and is present at data/ground_truth.csv
     # and a sample submission is present at data/sample_submission.csv
     File_Dict = edict()
-    File_Dict['Master_Step2'] = 'Master_Step2.csv'
-    File_Dict['Participant_Step2'] = 'Participant_Step2.csv'
+    File_Dict['Master_Step2'] = 'data/ground_truth/round2_ground_truth.csv'
+    File_Dict['Participant_Step2'] = 'data/submission/round2_submission.csv'
     File_Dict['Comparison_Result_Step2'] = 'Comparison_Result_Step2.csv'
-    File_Dict['Cluster_Data'] = 'Cluster_Data.csv'
-    File_Dict['Master_Step4'] = 'Master_Step4.csv'
-    File_Dict['Predict'] = 'Predict.csv'
-    File_Dict['Master_Step5'] = 'Master_Step5.csv'
-    File_Dict['Optimize'] = 'Optimize.csv'
+    File_Dict['Cluster_Data'] = 'data/submission/round3_submission.csv'
+    File_Dict['Master_Step4'] = 'data/ground_truth/round4_ground_truth.csv'
+    File_Dict['Predict'] = 'data/submission/round4_submission.csv'
+    File_Dict['Master_Step5'] = 'data/ground_truth/round5_ground_truth.csv'
+    File_Dict['Optimize'] = 'data/submission/round5_submission.csv'
     
     Weight_Dict = edict()
     Weight_Dict['Weight2'] = 0.1
@@ -223,7 +228,7 @@ if __name__ == "__main__":
     MAPE_Score, Evaluation_Score = aicrowd_evaluator._Error(_client_payload,Evaluation_Score)
     print("Round:",Round, " ---- Evaluation Score:", Evaluation_Score)                                   
     Round +=1 
-    
+
     Evaluation_Score = aicrowd_evaluator._Optimize(_client_payload,MAPE_Score,Evaluation_Score)
     print("Round:",Round, " ---- Evaluation Score:", Evaluation_Score)                                   
 
