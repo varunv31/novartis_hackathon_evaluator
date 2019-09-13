@@ -40,6 +40,16 @@ json.loads(r.text)
 - `UPLOAD_FOLDER` : Path to folder to store the uploaded files (defaults to `/tmp`)
 - `UPLOAD_EXTRACT_FOLDER`: Path to folder to extract the uploaded files (defaults to `/tmp`)
 
+## Setup and debug the evaluator
+
+```
+git clone git@github.com:AIcrowd/novartis_hackathon_evaluator.git
+cd novartis_hackathon_evaluator
+pip install -r requirements.txt
+
+python evaluator.py
+```
+
 ## Authors
 
 - Sharada Mohanty
