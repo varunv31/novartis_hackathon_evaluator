@@ -24,7 +24,7 @@ json.loads(r.text)
 #{'message': 'Submission Evaluated', 'meta': {'Task-1-Score': 1, 'Task-2-Score': 1.0, 'Task-3-Score': 0.5193820017607189, 'Task-4-Score': 0.7303686378204532, 'Task-5-Score': 0.26963136217954675}, 'score': 0.6518883280923063, 'score_secondary': 1, 'success': True}
 ```
 
-## Run evaluator on machine
+## Run evaluator locally
 
 ```
 >> pip install aicrowd-repo2docker
