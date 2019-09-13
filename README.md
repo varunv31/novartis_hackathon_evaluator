@@ -37,6 +37,9 @@ json.loads(r.text)
 - `UNIQUE_ACCESS_KEY` : A unique auth key used for authentication of the API calls
 - `GROUND_TRUTH_DATA_FOLDER` : Path to the ground truth data folder
 
+- `UPLOAD_FOLDER` : Path to folder to store the uploaded files (defaults to `/tmp`)
+- `UPLOAD_EXTRACT_FOLDER`: Path to folder to extract the uploaded files (defaults to `/tmp`)
+
 ## Authors
 
 - Sharada Mohanty
