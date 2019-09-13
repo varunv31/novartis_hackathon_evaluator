@@ -136,6 +136,16 @@ class NovartisHackathonEvaluator:
                     expected_column
                 )
 
+        """
+        NOTE: You can add more validations, and simply report errors back to the 
+        user by doing :
+            raise Exception("your error message here")
+
+        Having a good amount of useful validations will help participants 
+        better interact with the whole setup, and will save everyone a lot 
+        of time in terms of support.
+        """
+
         # Extracting the number of clusters
         n_cluster = participant_submission['Market_Cluster'].max()
         labels = participant_submission['Market_Cluster'].values
