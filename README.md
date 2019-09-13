@@ -31,3 +31,13 @@ json.loads(r.text)
 >> ./docker_build.sh
 >> ./docker_run.sh
 ```
+
+## Available Env vars
+
+- `UNIQUE_ACCESS_KEY` : A unique auth key used for authentication of the API calls
+- `GROUND_TRUTH_DATA_FOLDER` : Path to the ground truth data folder
+
+## Authors
+
+- Sharada Mohanty
+- Shivam Khandelwal
