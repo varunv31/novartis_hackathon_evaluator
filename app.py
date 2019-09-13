@@ -16,6 +16,7 @@ from evaluator import NovartisHackathonEvaluator
 UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', '/tmp')
 UPLOAD_EXTRACT_FOLDER = os.getenv('UPLOAD_EXTRACT_FOLDER', '/tmp')
 UNIQUE_ACCESS_KEY = os.getenv('UNIQUE_ACCESS_KEY', 'QUlDUk9XRF9HUkFERVIK')
+GROUND_TRUTH_DATA_FOLDER = os.getenv("GROUND_TRUTH_DATA_FOLDER", "data/ground_truth")
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -44,20 +45,13 @@ def evaluate():
         except Exception as e:
             return jsonify({"success": False, "message": "Extraction of zip file failed with error: %s" % e}), 500
 
-        evaluator = NovartisHackathonEvaluator("data/ground_truth", debug=False)
+        evaluator = NovartisHackathonEvaluator(GROUND_TRUTH_DATA_FOLDER, debug=False)
         try:
             score_object = evaluator.evaluate(tmpdirname)
         except Exception as e:
             error_message = str(e)
             return jsonify({"success": False, "message": error_message}), 500
         return jsonify({**score_object, **{"success": True, "message": "Submission Evaluated"}}), 200
-
-    """
-    # Benchmark
-    import tqdm
-    for k in tqdm.tqdm(range(1000)):
-        score_object = evaluator.evaluate("data/submission")
-    """
 
 if __name__ == "__main__":
     def warn(*args, **kwargs):

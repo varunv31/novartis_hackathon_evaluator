@@ -8,11 +8,13 @@ The expected parameters are:
 2. `key`: Authentication key used by AIcrowd grader (basic protection)
 
 ## cURL Example
+
 ```
 curl -XPOST http://localhost:5000/evaluate -F "submission=@/tmp/submission.zip" -F "key=QUlDUk9XRF9HUkFERVIK"
 ```
 
 ## Python Example
+
 ```
 import json
 import requests
@@ -23,7 +25,9 @@ json.loads(r.text)
 ```
 
 ## Run evaluator on machine
+
 ```
+>> pip install aicrowd-repo2docker
 >> ./docker_build.sh
 >> ./docker_run.sh
 ```
