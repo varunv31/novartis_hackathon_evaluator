@@ -1,2 +1,2 @@
 #!/bin/bash
-python evaluator.py
+python app.py
