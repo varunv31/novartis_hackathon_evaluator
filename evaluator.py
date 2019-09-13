@@ -185,14 +185,20 @@ class NovartisHackathonEvaluator:
                           df_mape['Predict_Sales']).abs() / df_mape['Actual_Sales']
         MAPE = df_mape['ABS'].mean()
 
-        MAPE_Score = (1 - MAPE)
+        MAPA = np.clip((1 - MAPE), 0, 1)
         """
-        TODO : Normalize these scores to fall within a particular range
+        Normalization Strategy :
+            - Clip MAPA to [0, 1]
+        
+        Considerations:
+            - MAPE is assymetric anyway.
+            - Probably test the data distribution for estimation of probability 
+                of higher-estimations (which MAPE exagerates by design)
         """
 
-        return MAPE_Score
+        return MAPA
 
-    def compute_task5_score(self, task5_submission_path, MAPE_Score):
+    def compute_task5_score(self, task5_submission_path, MAPA):
         """
         This function generates the score for the overall optimized value
 
@@ -220,7 +226,7 @@ class NovartisHackathonEvaluator:
         actual_scalar = np.asscalar(actual_value)
 
         # Error Score
-        score = (submission_scalar * (1 - MAPE_Score)) / actual_scalar
+        score = (submission_scalar * MAPA) / actual_scalar
         """
         TODO : Normalize these scores to fall within a particular range
 
@@ -263,8 +269,8 @@ class NovartisHackathonEvaluator:
             "task4_submission.csv"
         ))
         score_4_weighted = score_4 * self.task_scoring_weights[4]
-        # Task-4 Score is the MAPE_Score
-        MAPE_Score = score_4
+        # Task-4 Score is the MAPA
+        MAPA = score_4
 
         if self.debug:
             print("Round-4 Score ", score_4)
@@ -273,7 +279,7 @@ class NovartisHackathonEvaluator:
         score_5 = self.compute_task5_score(os.path.join(
             submission_folder,
             "task5_submission.csv"
-        ), MAPE_Score)
+        ), MAPA)
         score_5_weighted = score_5 * self.task_scoring_weights[5]
 
         if self.debug:
@@ -287,19 +293,17 @@ class NovartisHackathonEvaluator:
             print("Weighted Score : ", weighted_score)
 
         _score_object = {}
-        _score_object["score"] = weighted_score
-        _score_object["score_secondary"] = score_1
+        _score_object["score"] = weighted_score * 100
+        _score_object["score_secondary"] = score_1 * 100
         _score_object["meta"] = {
-            "Task-1-Score": score_1,
-            "Task-2-Score": score_2,
-            "Task-3-Score": score_3,
-            "Task-4-Score": score_4,
-            "Task-5-Score": score_5,
+            "Task-1-Score": score_1 * 100,
+            "Task-2-Score": score_2 * 100,
+            "Task-3-Score": score_3 * 100,
+            "Task-4-Score": score_4 * 100,
+            "Task-5-Score": score_5 * 100,
         }
 
         return _score_object
-
-        return weighted_score
 
 
 if __name__ == "__main__":
