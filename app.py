@@ -45,7 +45,11 @@ def evaluate():
             return jsonify({"success": False, "message": "Extraction of zip file failed with error: %s" % e}), 500
 
         evaluator = NovartisHackathonEvaluator("data/ground_truth", debug=False)
-        score_object = evaluator.evaluate(tmpdirname)
+        try:
+            score_object = evaluator.evaluate(tmpdirname)
+        except Exception as e:
+            error_message = str(e)
+            return jsonify({"success": False, "message": error_message}), 500
         return jsonify({**score_object, **{"success": True, "message": "Submission Evaluated"}}), 200
 
     """
