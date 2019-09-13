@@ -10,6 +10,9 @@ from sklearn import preprocessing
 from sklearn.metrics import silhouette_score
 from werkzeug.utils import secure_filename
 
+BEGIN_TIME = float(os.getenv("BEGIN_TIME", 1568382895.523836))
+
+
 class NovartisHackathonEvaluator:
     def __init__(self, ground_truth_folder, debug=False):
         """
@@ -52,6 +55,12 @@ class NovartisHackathonEvaluator:
             self.ground_truth_folder,
             "task5_ground_truth.csv"
         )
+
+    def compute_task1_score(self):
+        """
+        We use a constant value of 1 for now
+        """
+        return 1
 
     def compute_task2_score(self, task2_submission_path):
         """
@@ -240,8 +249,8 @@ class NovartisHackathonEvaluator:
 
     def evaluate(self, submission_folder):
 
-        # Round-1 Score #To be computed later
-        score_1 = 1
+        # Round-1 Score 
+        score_1 = self.compute_task1_score()
         score_1_weighted = score_1 * self.task_scoring_weights[1]
 
         score_2 = self.compute_task2_score(os.path.join(
