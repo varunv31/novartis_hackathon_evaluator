@@ -20,8 +20,8 @@ UPLOAD_EXTRACT_FOLDER = os.getenv('UPLOAD_EXTRACT_FOLDER', '/tmp')
 UNIQUE_ACCESS_KEY = os.getenv('UNIQUE_ACCESS_KEY', 'QUlDUk9XRF9HUkFERVIK')
 GROUND_TRUTH_DATA_FOLDER = os.getenv("GROUND_TRUTH_DATA_FOLDER", "data/ground_truth")
 SSL_ENABLE = strtobool(os.getenv("SSL_ENABLE", "False"))
-SSL_PRIVATEKEY_FILE = os.getenv("SSL_PRIVATEKEY_FILE", "data/certificate/key.pem")
-SSL_CERTIFICATE_FILE = os.getenv("SSL_CERTIFICATE_FILE", "data/certificate/cert.pem")
+SSL_PRIVATEKEY_FILE = os.getenv("SSL_PRIVATEKEY_FILE", "certificate/key.pem")
+SSL_CERTIFICATE_FILE = os.getenv("SSL_CERTIFICATE_FILE", "certificate/cert.pem")
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

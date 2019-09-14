@@ -10,8 +10,8 @@ SSL_CERTIFICATE_FILE="/path/to/certificate.crt"
 
 sudo docker run -p 5000:5000 \
 -v $PWD/${GROUND_TRUTH_DATA_DIRECTORY}:/home/aicrowd/data/ground_truth \
--v $PWD/${SSL_PRIVATEKEY_FILE}:/home/aicrowd/data/certificate/key.pem \
--v $PWD/${SSL_CERTIFICATE_FILE}:/home/aicrowd/data/certificate/cert.pem \
+-v $PWD/${SSL_PRIVATEKEY_FILE}:/home/aicrowd/certificate/key.pem \
+-v $PWD/${SSL_CERTIFICATE_FILE}:/home/aicrowd/certificate/cert.pem \
 -e UPLOAD_FOLDER=${UPLOAD_FOLDER} \
 -e UPLOAD_EXTRACT_FOLDER=${UPLOAD_EXTRACT_FOLDER} \
 -e UNIQUE_ACCESS_KEY=${UNIQUE_ACCESS_KEY} \
