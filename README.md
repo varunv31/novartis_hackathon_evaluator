@@ -40,6 +40,10 @@ json.loads(r.text)
 - `UPLOAD_FOLDER` : Path to folder to store the uploaded files (defaults to `/tmp`)
 - `UPLOAD_EXTRACT_FOLDER`: Path to folder to extract the uploaded files (defaults to `/tmp`)
 
+- `SSL_ENABLE` : Set to True for enabling SSL mode
+- `SSL_PRIVATEKEY_FILE` : Path to SSL private key file
+- `SSL_CERTIFICATE_FILE` : Path to SSL certificate file
+
 ## Setup and debug the evaluator
 
 ```
@@ -48,6 +52,14 @@ cd novartis_hackathon_evaluator
 pip install -r requirements.txt
 
 python evaluator.py
+```
+
+## SSL Certificate
+
+```
+# Either copy paste or generate certificate using below 
+>> openssl req -x509 -newkey rsa:4096 -nodes -out certificate/cert.pem -keyout certificate/key.pem -days 365
+# Set the environment variables correctly in docker_run.sh
 ```
 
 ## Authors
