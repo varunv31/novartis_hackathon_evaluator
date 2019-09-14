@@ -5,8 +5,10 @@ import numpy as np
 import tempfile
 import warnings
 import zipfile
+from distutils.util import strtobool
 from flask import Flask
 from flask import request, jsonify
+from OpenSSL import SSL
 from shutil import copyfile
 from sklearn import preprocessing
 from sklearn.metrics import silhouette_score
@@ -17,6 +19,9 @@ UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', '/tmp')
 UPLOAD_EXTRACT_FOLDER = os.getenv('UPLOAD_EXTRACT_FOLDER', '/tmp')
 UNIQUE_ACCESS_KEY = os.getenv('UNIQUE_ACCESS_KEY', 'QUlDUk9XRF9HUkFERVIK')
 GROUND_TRUTH_DATA_FOLDER = os.getenv("GROUND_TRUTH_DATA_FOLDER", "data/ground_truth")
+SSL_ENABLE = strtobool(os.getenv("SSL_ENABLE", "False"))
+SSL_PRIVATEKEY_FILE = os.getenv("SSL_PRIVATEKEY_FILE", "data/certificate/key.pem")
+SSL_CERTIFICATE_FILE = os.getenv("SSL_CERTIFICATE_FILE", "data/certificate/cert.pem")
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -57,4 +62,11 @@ if __name__ == "__main__":
     def warn(*args, **kwargs):
         pass
     warnings.warn = warn
-    app.run(host='0.0.0.0')
+
+    if not SSL_ENABLE:
+        app.run(host='0.0.0.0')
+    else:
+        context = SSL.Context(SSL.PROTOCOL_TLSv1_2)
+        context.use_privatekey_file(SSL_PRIVATEKEY_FILE)
+        context.use_certificate_file(SSL_CERTIFICATE_FILE)
+        app.run(host='0.0.0.0', ssl_context=context)
