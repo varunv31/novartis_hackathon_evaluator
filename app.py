@@ -8,7 +8,6 @@ import zipfile
 from distutils.util import strtobool
 from flask import Flask
 from flask import request, jsonify
-from OpenSSL import SSL
 from shutil import copyfile
 from sklearn import preprocessing
 from sklearn.metrics import silhouette_score
@@ -66,7 +65,5 @@ if __name__ == "__main__":
     if not SSL_ENABLE:
         app.run(host='0.0.0.0')
     else:
-        context = SSL.Context(SSL.PROTOCOL_TLSv1_2)
-        context.use_privatekey_file(SSL_PRIVATEKEY_FILE)
-        context.use_certificate_file(SSL_CERTIFICATE_FILE)
-        app.run(host='0.0.0.0', ssl_context=context)
+        context = (SSL_CERTIFICATE_FILE, SSL_PRIVATEKEY_FILE)
+        app.run(host='0.0.0.0', ssl_context=context, threaded=True)
